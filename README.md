@@ -4,6 +4,8 @@ A simple todo app written in Rescript.
 
 - Uses `@formkit/auto-animate/react` to show how to import and use Javascript modules.
 
+#### Deployed project: https://rescript-todo-dusky.vercel.app/
+
 ## Running the project
 
 #### Install dependencies.
