@@ -22,30 +22,33 @@ let make = () => {
       )
 
     let removeTodo = this_todo =>
-      setTodos(todos => Array.keep(todos, todo => todo.id !== this_todo.TodoForm.id))
+      setTodos(todos => todos->Array.keep(todo => todo.id !== this_todo.TodoForm.id))
 
     let clearTodos = _ => {
       setTodos(_ => [])
     }
   }
 
-  let todoList = Array.mapWithIndex(todos, (i, this_todo) => {
-    <li
-      key={Int.toString(i)}
-      className="flex justify-between items-center border-b border-gray-200 py-4">
-      <h2
-        className="list-none hover:opacity-80 hover:line-through hover:cursor-pointer hover:text-rose-600"
-        onClick={_ => StateUpdates.removeTodo(this_todo)}>
-        {this_todo.text->React.string}
-      </h2>
-      <input
-        type_="checkbox"
-        className="accent-rose-500"
-        checked={this_todo.completed}
-        onChange={_ => StateUpdates.toggleCompleteTodo(this_todo)}
-      />
-    </li>
-  })->React.array
+  let todoList =
+    todos
+    ->Array.mapWithIndex((i, this_todo) => {
+      <li
+        key={Int.toString(i)}
+        className="flex justify-between items-center border-b border-gray-200 py-4">
+        <h2
+          className="list-none hover:opacity-80 hover:line-through hover:cursor-pointer hover:text-rose-600"
+          onClick={_ => StateUpdates.removeTodo(this_todo)}>
+          {this_todo.text->React.string}
+        </h2>
+        <input
+          type_="checkbox"
+          className="accent-rose-500"
+          checked={this_todo.completed}
+          onChange={_ => StateUpdates.toggleCompleteTodo(this_todo)}
+        />
+      </li>
+    })
+    ->React.array
 
   // Display page
   <div className="container mx-auto p-16">
