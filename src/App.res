@@ -6,7 +6,7 @@ external useAutoAnimate: unit => (ReactDOM.Ref.currentDomRef, bool => unit) = "u
 
 @react.component
 let make = () => {
-  let (todos, setTodos) = React.useState(() => [])
+  let (todos, setTodos) = React.useState(_ => [])
   let (animatedListRef, _) = useAutoAnimate()
 
   module StateUpdates = {
@@ -29,7 +29,7 @@ let make = () => {
 
   let todoList =
     todos
-    ->Array.mapWithIndex((i, thisTodo) => {
+    ->Array.mapWithIndex(i, thisTodo => {
       <li
         key={Int.toString(i)}
         className="flex justify-between items-center border-b border-gray-200 py-4">
