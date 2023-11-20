@@ -1,13 +1,10 @@
 @@warning("-44")
 open Belt
 
-@module("@formkit/auto-animate/react")
-external useAutoAnimate: unit => (ReactDOM.Ref.currentDomRef, bool => unit) = "useAutoAnimate"
-
 @react.component
 let make = () => {
   let (todos, setTodos) = React.useState(_ => [])
-  let (animatedListRef, _) = useAutoAnimate()
+  let (animatedListRef, _) = AutoAnimate.useAutoAnimate()
 
   module StateUpdates = {
     let toggleCompleteTodo = thisTodo =>
@@ -29,7 +26,7 @@ let make = () => {
 
   let todoList =
     todos
-    ->Array.mapWithIndex(i, thisTodo => {
+    ->Array.mapWithIndex((i, thisTodo) =>
       <li
         key={Int.toString(i)}
         className="flex justify-between items-center border-b border-gray-200 py-4">
@@ -45,7 +42,7 @@ let make = () => {
           onChange={_ => StateUpdates.toggleCompleteTodo(thisTodo)}
         />
       </li>
-    })
+    )
     ->React.array
 
   // Display page
