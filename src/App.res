@@ -10,10 +10,10 @@ let make = () => {
   let (animatedListRef, _) = useAutoAnimate()
 
   module StateUpdates = {
-    let toggleCompleteTodo = this_todo =>
+    let toggleCompleteTodo = thisTodo =>
       setTodos(todos =>
-        Array.map(todos, todo =>
-          if this_todo.TodoForm.id == todo.TodoForm.id {
+        todos->Array.map(todo =>
+          if thisTodo.TodoForm.id == todo.TodoForm.id {
             {...todo, completed: !todo.completed}
           } else {
             todo
@@ -21,30 +21,28 @@ let make = () => {
         )
       )
 
-    let removeTodo = this_todo =>
-      setTodos(todos => todos->Array.keep(todo => todo.id !== this_todo.TodoForm.id))
+    let removeTodo = thisTodo =>
+      setTodos(todos => todos->Array.keep(todo => todo.id !== thisTodo.TodoForm.id))
 
-    let clearTodos = _ => {
-      setTodos(_ => [])
-    }
+    let clearTodos = _ => setTodos(_ => [])
   }
 
   let todoList =
     todos
-    ->Array.mapWithIndex((i, this_todo) => {
+    ->Array.mapWithIndex((i, thisTodo) => {
       <li
         key={Int.toString(i)}
         className="flex justify-between items-center border-b border-gray-200 py-4">
         <h2
           className="list-none hover:opacity-80 hover:line-through hover:cursor-pointer hover:text-rose-600"
-          onClick={_ => StateUpdates.removeTodo(this_todo)}>
-          {this_todo.text->React.string}
+          onClick={_ => StateUpdates.removeTodo(thisTodo)}>
+          {thisTodo.text->React.string}
         </h2>
         <input
           type_="checkbox"
           className="accent-rose-500"
-          checked={this_todo.completed}
-          onChange={_ => StateUpdates.toggleCompleteTodo(this_todo)}
+          checked={thisTodo.completed}
+          onChange={_ => StateUpdates.toggleCompleteTodo(thisTodo)}
         />
       </li>
     })
