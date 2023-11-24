@@ -12,13 +12,13 @@ let make = (~onSubmit: todo => unit) => {
   module InputFocus = {
     let textInput = React.useRef(Js.Nullable.null)
 
-    let focusInput = () =>
+    let focusInput = _ =>
       switch textInput.current->Js.Nullable.toOption {
       | Some(dom) => dom->focus
       | None => ()
       }
 
-    React.useEffect(() => {Some(_ => focusInput())})
+    React.useEffect(_ => {Some(_ => focusInput())}, [])
   }
 
   let (currTodo, setCurrTodo) = React.useState(() => {

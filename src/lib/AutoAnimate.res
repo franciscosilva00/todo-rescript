@@ -1,4 +1,4 @@
-type useAutoAnimateConfig = {
+type autoAnimateOptions = {
   /*
    * The time it takes to run a single sequence of animations in milliseconds.
    */
@@ -17,6 +17,5 @@ type useAutoAnimateConfig = {
 
 @module("@formkit/auto-animate/react")
 external useAutoAnimate: (
-  ~config: useAutoAnimateConfig=?,
-  unit,
+  ~config: autoAnimateOptions=?,
 ) => (ReactDOM.Ref.currentDomRef, bool => unit) = "useAutoAnimate"
